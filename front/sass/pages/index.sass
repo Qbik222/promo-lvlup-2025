@@ -1,4 +1,5 @@
 $blue: #000055
+$dark-blue: #00003D
 $white: #ffffff
 $magenta: #FF267E
 $green: #05C48A
@@ -6,7 +7,11 @@ $black: #1B1B1F
 $grey: #AEAEAE
 
 $font-suisse-intl-reg: SuisseIntl-Regular, sans-serif
+$font-suisse-intl-semib: SuisseIntl-SemiBold, sans-serif
 $font-suisse-intl-bold: SuisseIntl-Bold, sans-serif
+$font-tekur-bold: Tektur-Bold, sans-serif
+$font-barlow-sc-bi: BarlowSemiCondensed, sans-serif
+$font-roboto-bold-it: RobotoCondensed-BoldItalic, sans-serif
 
 body.light
   background: $blue
@@ -17,22 +22,518 @@ picture.light
 picture.dark
   display: none
 
+picture.uk
+  display: block
+
+picture.en
+  display: none
+
 body
   overscroll-behavior: none
   -webkit-tap-highlight-color: transparent
-  background: $blue
+  background: $dark-blue
   img
     max-width: 100%
     height: auto
   & > *
     font-family: inherit
 
+.btn
+  display: flex
+  align-items: center
+  justify-content: center
+  min-width: 230px
+  padding: 0 30px
+  width: fit-content
+  height: 111px
+  background: url("../img/btn-bg.png") no-repeat 0 0/cover
+  background-size: 100% 100%
+  transition: background .8s ease-in-out
+  span
+    font-family: $font-roboto-bold-it
+    font-size: 24px
+    text-transform: uppercase
+    letter-spacing: -.02em
+    color: $blue
+    transform: rotate(-7.22deg)
+  &:hover
+    background: url("../img/btn-bg-hover.png") no-repeat 0 0/cover
+    cursor: pointer
+    background-size: 100% 100%
+
+.title
+  font-family: $font-tekur-bold
+  color: $magenta
+  font-size: 64px
+  text-transform: uppercase
+  text-shadow: -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF, 2px 2px 0 #FFF, -2px 0px 0 #FFF, 2px 0px 0 #FFF, 0px -2px 0 #FFF, 0px 2px 0 #FFF, 0px 4px 2px rgba(0, 0, 61, 0.45)
+  //-webkit-text-stroke-width: 3px
+  //-webkit-text-stroke-color: #FFF
+  letter-spacing: -.035em
+
 .fav-page
-  background: $blue
+  background: $dark-blue
   display: flex
   flex-direction: column
   align-items: center
   overflow: hidden
+
+.welcome
+  display: flex
+  flex-direction: column
+  align-items: center
+  position: relative
+  width: 100%
+  background: url("../img/welcome/welcome-bg-desc.jpg") no-repeat 50% 0/cover
+  padding: 10px 0 25px 0
+  @media screen and (max-width: 1550px)
+    background-size: 1600px auto
+  @media screen and (max-width: 1050px)
+    background: url("../img/welcome/welcome-bg-desc.jpg") no-repeat 50% 0/cover
+    background-size: 1060px auto
+  &::after
+    content: ""
+    display: block
+    width: 100%
+    height: 70%
+    z-index: 0
+    position: absolute
+    bottom: -2px
+    background: linear-gradient(0deg, #00003d 10%, rgba(0, 0, 61, 0) 100%)
+  &::before
+    content: ""
+    display: block
+    width: 1250px
+    height: 620px
+    position: absolute
+    top: 250px
+    left: 50%
+    transform: translate(-50%, 0)
+    z-index: 1
+    background: url("../img/welcome/welcome-shadow.png") no-repeat 0 0/contain
+  &__img
+    max-width: 765px
+    margin-bottom: -290px
+    z-index: 0
+  &__logo
+    max-width: 510px
+    z-index: 2
+  &__text
+    max-width: 445px
+    z-index: 2
+  &__prize
+    max-width: 710px
+    z-index: 2
+    margin-bottom: 15px
+  &__btn
+    z-index: 2
+    margin-bottom: 30px
+  &__bottom
+    z-index: 2
+    max-width: 825px
+    font-family: $font-suisse-intl-reg
+    font-size: 20px
+    color: $white
+    text-align: center
+    &::before
+      content: ""
+      display: block
+      position: absolute
+      z-index: 0
+      width: 800px
+      height: 235px
+      background: url("../img/welcome/bottom-decor.png") no-repeat 0 0/cover
+      background-size: 100% 100%
+      bottom: -30px
+      left: 50%
+      pointer-events: none
+      transform: translate(-50%, 0)
+      @media screen and (max-width: 1050px)
+        background: url("../img/welcome/bottom-decor-tab.png") no-repeat 0 0/cover
+        background-size: 100% 100%
+        width: 435px
+        height: 185px
+
+
+.info
+  width: 100%
+  display: flex
+  flex-direction: column
+  align-items: center
+  padding: 0 10px
+  &__title
+    z-index: 2
+  &__list
+    display: flex
+    align-items: center
+    position: relative
+    margin: -120px 0 35px 0
+    gap: 50px
+    &::before
+      display: block
+      content: ""
+      width: 2000px
+      height: 315px
+      background: url("../img/info/list-bg-desc.png") no-repeat 0 0/cover
+      background-size: 100% 100%
+      position: absolute
+      left: 50%
+      top: 50%
+      transform: translate(-50%, -50%)
+      z-index: 0
+      @media screen and (max-width: 1300px)
+        background: url("../img/info/list-bg-tab.png") no-repeat 0 0/cover
+        background-size: 100% 100%
+        width: 1300px
+        height: 230px
+        top: 40%
+      @media screen and (max-width: 1050px)
+        width: 1095px
+        height: 230px
+        top: 47%
+  &__item
+    display: flex
+    flex-direction: column
+    align-items: center
+    min-height: 365px
+    max-height: 365px
+    z-index: 1
+    &:nth-child(2)
+      .info__item-num
+        max-width: 360px
+    &-num
+      max-width: 330px
+      min-height: 305px
+      max-height: 305px
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: center
+    &-text
+      font-family: $font-suisse-intl-bold
+      color: $white
+      text-align: center
+      font-size: 20px
+  &__btn
+    z-index: 1
+
+
+.results
+  width: 100%
+  display: flex
+  flex-direction: column
+  align-items: center
+  position: relative
+  padding: 20px 0
+  &::before
+    content: ""
+    display: block
+    width: 1405px
+    height: 564px
+    background: url("../img/results/results-decor.png") no-repeat 0 0/cover
+    background-size: 100% 100%
+    position: absolute
+    top: -170px
+    left: 50%
+    z-index: 0
+    transform: translate(-50%, 0)
+  &__title
+    z-index: 1
+  &__tabs
+    z-index: 1
+    display: flex
+    align-items: center
+    gap: 8px
+    &-item
+      padding: 10px 15px
+      color: $white
+      text-transform: uppercase
+      font-size: 18px
+      font-family: $font-suisse-intl-reg
+      background: url("../img/results/week-tab.png") no-repeat 0 0/cover
+      background-size: 100% 100%
+      transition: background .7s ease-in-out
+      min-width: 145px
+      max-width: 145px
+      //white-space: nowrap
+      display: flex
+      align-items: center
+      justify-content: center
+      &._active
+        background: url("../img/results/week-tab-active.png") no-repeat 0 0/cover
+        background-size: 100% 100%
+      &:hover
+        cursor: pointer
+        background: url("../img/results/week-tab-active.png") no-repeat 0 0/cover
+        background-size: 100% 100%
+
+  &__prize
+    z-index: 1
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    background: url("../img/results/prize-tab.png") no-repeat 0 0/cover
+    background-size: 100% 100%
+    padding: 3px 22px 3px 22px
+    margin-top: 15px
+    &-title
+      color: $white
+      text-transform: uppercase
+      font-size: 18px
+      font-family: $font-suisse-intl-reg
+      min-width: 325px
+      text-align: center
+    &-amount
+      color: $white
+      text-transform: uppercase
+      font-size: 20px
+      font-family: $font-suisse-intl-bold
+  &__btn
+    margin-bottom: 10px
+  &__bottom
+    color: $white
+    font-size: 12px
+    font-family: $font-suisse-intl-reg
+    max-width: 725px
+    text-align: center
+    margin-bottom: 40px
+
+
+.tableResults
+  display: flex
+  flex-direction: column
+  position: relative
+  margin: 20px 0 10px 0
+  min-width: 820px
+  max-width: 820px
+  z-index: 3
+  backdrop-filter: blur(10px)
+  &__your-title
+    color: $magenta
+    font-size: 20px
+    font-family: $font-suisse-intl-bold
+    text-align: center
+    margin-bottom: 16px
+
+  &__head
+    display: flex
+    align-items: center
+    width: 100%
+    &-col
+      color: $white
+      font-size: 14px
+      //font-family: $font-alegreya-med
+      padding: 12px 0 12px 18px
+  &__body
+    width: 100%
+    display: flex
+    flex-direction: column
+    max-height: 548px
+    min-height: 548px
+    overflow-y: auto
+    overflow-x: hidden
+    scrollbar-width: auto
+    gap: 12px
+    &.auth
+      min-height: 660px
+    &::-webkit-scrollbar-thumb
+      width: 2px
+      background: $green
+    &::-webkit-scrollbar
+      background: rgba($green, .2)
+      border-radius: 5px
+      width: 2px
+    &-other
+      margin-top: 20px
+      position: relative
+      &::before
+        content: ""
+        display: block
+        width: 700px
+        height: 170px
+        background: url("../img/results/your-shadow.png") no-repeat 0 0/cover
+        background-size: 100% 100%
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
+  &__row
+    display: flex
+    align-items: center
+    background: rgba(#060626, .5)
+    position: relative
+    &._your
+      background: url("../img/results/table-you.png") no-repeat 0 0/cover
+      background-size: 100% 100%
+    ._your
+      position: absolute
+      left: 7px
+      color: $magenta
+      //font-family: $font-alegreya-med
+      font-size: 16px
+      line-height: 20px
+
+      @media screen and (max-width: 500px)
+        left: 10px
+    &.place1, &.place2, &.place3
+      &._your
+        ._your
+          left: 53px
+          @media screen and (max-width: 500px)
+            left: 10px
+      &::before
+        content: ""
+        display: block
+        position: absolute
+        left: 15px
+        top: 50%
+        transform: translate(0, -50%)
+        width: 26px
+        height: 26px
+      &.place1
+        &::before
+          background: url("../img/results/gold.png") no-repeat 0 0/contain
+      &.place2
+        &::before
+          background: url("../img/results/silver.png") no-repeat 0 0/contain
+      &.place3
+        &::before
+          background: url("../img/results/bronze.png") no-repeat 0 0/contain
+    &-item
+      color: $white
+      font-family: $font-suisse-intl-bold
+      font-size: 20px
+      line-height: 20px
+      padding: 12px 0 12px 18px
+      &:nth-child(2), &:nth-child(3)
+        font-family: $font-suisse-intl-reg
+  &__head
+    background: url("../img/results/table-head.png") no-repeat 0 0/cover
+    background-size: 100% 100%
+    margin-bottom: 12px
+    &-col
+      text-transform: uppercase
+      font-size: 18px
+      font-family: $font-suisse-intl-reg
+  &__row
+    background: url("../img/results/table-row.png") no-repeat 0 0/cover
+    background-size: 100% 100%
+
+  &__row, &__head
+    height: 46px
+    &-col, &-item
+      width: 205px
+      display: flex
+      justify-content: center
+      align-items: center
+
+
+
+.drop
+  max-width: 825px
+  width: 95%
+  margin: 0 auto
+  position: relative
+  z-index: 5
+  & > *
+    font-family: inherit
+    color: $white
+  .dropdown[open] summary::before, .dropdown[open] summary::after
+    transform:  rotate(180deg)
+    bottom: 2px
+  summary
+    list-style: none
+    padding: 12px 20px 12px 40px
+    font-family: $font-suisse-intl-reg
+    font-size: 17px
+    text-transform: uppercase
+    text-shadow: 0px 0px 20px #09B4FF
+    cursor: pointer
+    display: flex
+    align-items: center
+    justify-content: space-between
+    background: url("../img/drop-bg.png") no-repeat 0 0/cover
+    background-size: 100% 100%
+    color: $white
+    @media screen and (max-width: 600px)
+      font-size: 16px
+      line-height: 16px
+    &::after
+      position: relative
+      content: ""
+      display: block
+      order: 0
+      width: 15px
+      height: 10px
+      z-index: 2
+      background: url("../img/arrow.png") no-repeat 0 0/contain
+  &-txt
+    padding: 16px 40px
+    margin: 10px 0
+    max-height: 350px
+    overflow-y: auto
+    scrollbar-width: auto
+    border-radius: 3px
+    background: rgba(255, 255, 255, 0.05)
+    box-shadow: -2px -2px 0px 0px rgba(255, 38, 126, 0.17) inset, 2px 2px 0px 0px rgba(30, 1, 170, 0.80) inset
+    position: relative
+    &::-webkit-scrollbar-thumb
+      width: 2px
+      background: $green
+    &::-webkit-scrollbar
+      background:  rgba(255, 38, 126, 0.017)
+      border-radius: 5px
+      width: 2px
+    &-list
+      display: flex
+      flex-direction: column
+      gap: 15px
+      z-index: 0
+      p, strong
+        font-size: 16px
+        line-height: 26px
+        font-family: $font-suisse-intl-reg
+        color: $white
+        @media screen and (max-width: 600px)
+          font-size: 14px
+          line-height: 22px
+      span
+        font-family: $font-suisse-intl-reg
+        display: block
+        padding-left: 15px
+      tr,td
+        font-family: $font-suisse-intl-reg
+      td
+        padding-left: 5px
+
+details summary
+  list-style: none
+  cursor: pointer
+
+  &::-webkit-details-marker
+    display: none
+
+.retreat1, .retreat2
+  padding-left: 15px
+  strong
+    font-family: $font-suisse-intl-bold
+    color: $white
+
+.retreat2
+  padding-left: 30px
+
+.circle
+  padding-left: 35px
+  &:before
+    content: ''
+    width: 5px
+    height: 5px
+    background: $white
+    border-radius: 50%
+    display: inline-block
+    margin: 0 4px 2px 0
+
 
 // dark
 body.dark
@@ -42,3 +543,10 @@ body.dark
   picture.dark
     display: block
 
+// en
+.fav-page.en
+  picture.en
+    display: block
+
+  picture.uk
+    display: none
