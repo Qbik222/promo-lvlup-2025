@@ -56,7 +56,7 @@
       margin-bottom: 10px
     &__tabs
       &-item
-        padding: 10px 3px
+        padding: 8px 3px 11px
         font-size: 16px
         min-width: 115px
         max-width: 115px
@@ -72,6 +72,8 @@
       max-width: 525px
       font-size: 12px
       margin-bottom: 20px
+      padding: 0 5px
+      text-wrap: balance
   .tableResults
     max-width: 520px
     min-width: 520px
@@ -100,3 +102,162 @@
         padding-right: 5px
   .drop
     max-width: 700px
+
+@media screen and (max-width: 650px)
+  .welcome
+    &__bottom
+      max-width: 435px
+  .info
+    &__list
+      flex-direction: column
+      margin: -80px 0 -20px 0
+      z-index: 1
+    &__item
+      max-width: none
+      min-width: auto
+      max-height: none
+      min-height: auto
+      flex-direction: row
+      justify-content: flex-start
+      align-items: center
+      &:nth-child(2)
+        margin: -125px 0
+        .info__item-num
+          min-width: 250px
+          max-width: 250px
+          margin-right: 10px
+        .info__item-text
+          margin-left: -55px
+          margin-right: 15px
+      &-num
+        min-width: 230px
+        max-width: 230px
+        min-height: 250px
+        max-height: 250px
+        margin-left: -70px
+      &-text
+        max-width: 225px
+        min-width: 225px
+        text-align: left
+        margin: 30px 0 0 -40px
+  .results
+    &::before
+      content: none
+    &__tabs
+      &-item
+        font-size: 14px
+        min-width: 110px
+        max-width: 110px
+
+@media screen and (max-width: 600px)
+  .welcome
+    &__img
+      margin-bottom: -255px
+
+@media screen and (max-width: 550px)
+  .welcome
+    &::before
+      width: 570px
+      height: 290px
+      top: 330px
+  .tableResults
+    max-width: 340px
+    min-width: 340px
+    &__row
+      &.place1, &.place2, &.place3
+        &::before
+          left: 10px
+    &__row, &__head
+      height: 30px
+      &-col, &-item
+        padding: 5px
+        width: 83px
+        font-size: 14px
+
+@media screen and (max-width: 450px)
+  .title
+    font-size: 36px
+  .welcome
+    &::before
+      top: 260px
+      width: 480px
+    &__img
+      max-width: 375px
+      min-width: 375px
+      margin-bottom: -210px
+    &__logo
+      max-width: 270px
+    &__text
+      max-width: 210px
+    &__prize
+      max-width: 330px
+    &__bottom
+      max-width: 100%
+      padding: 0 5px
+      text-wrap: balance
+  .info
+    &__item
+      &:nth-child(2)
+        margin: -145px 0
+        .info
+          &__item
+            &-num
+              min-width: 200px
+              max-width: 200px
+            &-text
+              margin-right: 5px
+              margin-left: -45px
+      &-num
+        min-width: 190px
+        max-width: 190px
+        margin-left: -50px
+      &-text
+        margin: 30px 0 0 -30px
+  .drop-txt
+    padding: 16px
+
+@media screen and (max-width: 365px)
+  .welcome
+    &__img
+      max-width: 335px
+      min-width: 335px
+      margin-bottom: -180px
+    &__logo
+      max-width: 240px
+    &__prize
+      max-width: 300px
+    &__bottom
+      font-size: 16px
+  .title
+    font-size: 32px
+  .info
+    &__list
+      transform: scale(.87)
+      margin: -110px 0 -50px 0
+  .results
+    &__tabs
+      transform: scale(.87)
+      min-width: 345px
+      max-width: 345px
+      margin-bottom: -10px
+    &__prize
+      transform: scale(.87)
+      min-width: 325px
+      max-width: 325px
+  .tableResults
+    transform: scale(.87)
+    margin: -25px 0 -25px
+
+@media screen and (max-width: 326px)
+  .welcome
+    &__img
+      max-width: 305px
+      min-width: 305px
+      margin-bottom: -160px
+    &__logo
+      max-width: 220px
+    &__text
+      max-width: 200px
+    &__prize
+      max-width: 280px
+
