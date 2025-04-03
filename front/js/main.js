@@ -1,11 +1,61 @@
 (function(){
-    const apiURL = 'https://fav-prom.com/api_formula1_25';
+    const apiURL = 'https://fav-prom.com/api_lvlup_2025';
+
+    const PROMO_START_DATE = new Date("2025-04-14T12:00:00");
+    const currentDate = new Date()
+
+    const weekDates = [];
+    let weekNums = 0;
+    const prizeFunds = [`300 000`, `300 000`, `400 000`];
+
+    const formatDate = (date) => {
+        return `${date.getDate().toString().padStart(2, "0")}.${(date.getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}`;
+    };
+
+    for (let i = 0; i < 3; i++) {
+        let start = new Date(PROMO_START_DATE.getTime() + i * 7 * 24 * 60 * 60 * 1000);
+        let end = new Date(start.getTime() + 6 * 24 * 60 * 60 * 1000);
+        end.setHours(23, 59, 59, 999);
+
+        weekDates[i] = {
+            start: start,
+            end: end,
+            period: `${formatDate(start)} - ${formatDate(end)}`,
+            prizeFund: prizeFunds[i],
+        };
+
+        if (currentDate >= end) {
+            weekNums++;
+        }
+    }
+
+    for (let i = 0; i < weekDates.length; i++) {
+        if (currentDate >= weekDates[i].start && currentDate <= weekDates[i].end) {
+            weekNums = i + 1;
+        }
+    }
+
+    if (weekNums === 0) {
+        if (currentDate < weekDates[0].start) {
+            console.log("Акція ще не почалась");
+        } else {
+            console.log("Акція вже закінчилась");
+        }
+    }
+
+    console.log("Поточний тиждень:", weekNums);
+    console.log("Деталі тижнів:", weekDates);
+
 
     const
         unauthMsgs = document.querySelectorAll('.unauth-msgs'),
         participateBtns = document.querySelectorAll('.took-part'),
         playBtns = document.querySelectorAll('.play-btn'),
-        mainPage = document.querySelector(".fav-page");
+        mainPage = document.querySelector(".fav-page"),
+        tabsContainer = document.querySelector(".results__tabs"),
+        weekAmount = document.querySelector(".results__prize-amount");
 
     const ukLeng = document.querySelector('#ukLeng');
     const enLeng = document.querySelector('#enLeng');
@@ -18,7 +68,7 @@
 
     let i18nData = {};
     let userId;
-    let debug = true;
+    const debug = false;
 
     userId = Number(sessionStorage.getItem("userId")) ?? 100300268 ;
     // userId = 100300268 ;
@@ -59,15 +109,40 @@
         }
     }
     const InitPage = () => {
+        checkUserAuth()
         translate();
+        renderTabs(tabsContainer)
     }
 
+    function participate() {
+        if (!userId) {
+            return;
+        }
+
+        const params = { userid: userId };
+        console.log(params)
+
+        fetch(apiURL + '/user/', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(params)
+        }).then(res => res.json())
+        .then(res => {
+
+            for (const joinBtn of participateBtns){
+                joinBtn.classList.add('hide');
+            }
+            InitPage();
+        });
+    }
 
     function loadTranslations() {
         return fetch(`${apiURL}/new-translates/${locale}`).then(res => res.json())
             .then(json => {
                 i18nData = json;
-                console.log(i18nData)
                 translate();
 
                 const mutationObserver = new MutationObserver(function(mutations) {
@@ -115,20 +190,54 @@
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-        }).then(res => res.json())
+        }).then(res => res.json());
     }
 
+
+    function renderTabs (container){
+        container.innerHTML = ""
+
+
+        let defaultTab = false
+
+        for (let i = 0; i < weekDates.length; i++){
+
+            const tab = document.createElement("div");
+            tab.classList.add("results__tabs-item")
+            tab.textContent = `${weekDates[i].period}`
+
+            if(i === weekNums - 1){
+                defaultTab = true
+                tab.classList.add("_active")
+                weekAmount.textContent = `${weekDates[i].prizeFund} ₴`
+            }
+
+            tab.setAttribute("data-week", i + 1)
+            container.appendChild(tab)
+        }
+
+        const tabs = document.querySelectorAll('.results__tabs-item')
+
+
+
+        console.log(defaultTab)
+        if(!defaultTab){
+            tabs[0].classList.add("_active")
+            weekAmount.textContent = `${weekDates[0].prizeFund} ₴`
+        }
+
+    }
 
     function init() {
         InitPage();
         if (window.store) {
-            var state = window.store.getState();
+            const state = window.store.getState();
             userId = state.auth.isAuthorized && state.auth.id || '';
         } else {
-            let c = 0;
+            const c = 0;
             var i = setInterval(function () {
                 if (c < 50) {
-                    if (!!window.g_user_id) {
+                    if (window.g_user_id) {
                         userId = window.g_user_id;
                         checkUserAuth();
                         clearInterval(i);
@@ -138,11 +247,30 @@
                 }
             }, 200);
         }
-
+        for (const joinBtn of participateBtns) {
+            joinBtn.addEventListener('click', function() {
+                participate()
+            });
+        }
         checkUserAuth();
     }
 
+    document.addEventListener('click', (e) => {
+        const tab = e.target.closest('.results__tabs-item');
+        if (!tab) return;
+        const allTabs = document.querySelectorAll('.results__tabs-item');
+        allTabs.forEach(item => {
+            item.classList.remove('_active');
+        });
+        tab.classList.add('_active');
+        const tabWeek = tab.getAttribute('data-week')
 
+        weekAmount.textContent = `${weekDates[tabWeek - 1].prizeFund} ₴`
+
+
+
+        console.log(tabWeek)
+    });
 
     loadTranslations()
         .then(init);
@@ -165,53 +293,16 @@
     }, 750)
 
 
-    // function animateOnScroll(element, animationClass, hideClass) {
-    //     const options = {
-    //         root: null,
-    //         rootMargin: '0px',
-    //         threshold: 0.2
-    //     };
-    //
-    //     const observer = new IntersectionObserver((entries) => {
-    //         entries.forEach(entry => {
-    //             if (entry.isIntersecting) {
-    //                 entry.target.classList.add(animationClass);
-    //                 entry.target.classList.remove(hideClass);
-    //             } else {
-    //                 entry.target.classList.remove(animationClass);
-    //                 entry.target.classList.add(hideClass);
-    //             }
-    //         });
-    //     }, options);
-    //
-    //     observer.observe(element);
-    // }
-
-    // animateOnScroll(welcomeLogo, "topAnimShow", "topAnimHide")
-    // animateOnScroll(welcomeText, "topAnimShow", "topAnimHide")
-    // animateOnScroll(welcomePrize, "topAnimShow", "topAnimHide")
-
-
-
     //test
 
-    for(const tab of document.querySelectorAll(".results__tabs-item")){
-        tab.addEventListener("click", (e) =>{
-            document.querySelectorAll(".results__tabs-item").forEach((item) =>{
-                item.classList.remove("_active")
-                if(item === e.target.closest(".results__tabs-item")){
-                    item.classList.add("_active")
-                }
-            } )
-        })
-    }
+
 
     document.querySelector(".auth-btn").addEventListener("click", () => {
         userId = Number(sessionStorage.getItem("userId")) || 0;
 
         if (userId === 100300268) {
-            userId = 100200100;
-        } else if (userId === 100200100) {
+            userId = 321123321;
+        } else if (userId === 321123321) {
             userId = 0;
         } else {
             userId = 100300268;
