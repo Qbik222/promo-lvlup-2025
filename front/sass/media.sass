@@ -1,3 +1,9 @@
+@media screen and (min-width: 2200px)
+  .info
+    &__list
+      &::before
+        width: 2600px
+
 @media screen and (max-width: 1150px)
   .info
     &__list
@@ -192,7 +198,7 @@
     &__prize
       max-width: 330px
     &__bottom
-      max-width: 100%
+      max-width: 340px
       padding: 0 5px
       text-wrap: balance
   .info
@@ -227,7 +233,7 @@
     &__prize
       max-width: 300px
     &__bottom
-      font-size: 16px
+      font-size: 14px
   .title
     font-size: 32px
   .info
@@ -244,6 +250,9 @@
       transform: scale(.87)
       min-width: 325px
       max-width: 325px
+    &__bottom
+      br
+        display: none
   .tableResults
     transform: scale(.87)
     margin: -25px 0 -25px

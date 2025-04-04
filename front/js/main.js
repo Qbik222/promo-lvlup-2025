@@ -295,7 +295,9 @@
 
     //test
 
-
+    if(!userId){
+        document.querySelector("#results-table-other").classList.add("hide")
+    }
 
     document.querySelector(".auth-btn").addEventListener("click", () => {
         userId = Number(sessionStorage.getItem("userId")) || 0;

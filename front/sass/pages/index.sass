@@ -209,7 +209,7 @@ body
         background-size: 100% 100%
         width: 1300px
         height: 230px
-        top: 40%
+        top: 47%
       @media screen and (max-width: 1050px)
         width: 1095px
         height: 230px
@@ -620,6 +620,12 @@ body.dark
       background-size: 103vw auto
     &::before
       background: url("../img/welcome/welcome-shadow-dark.png") no-repeat 0 0/contain
+      @media screen and (max-width: 1050px)
+        width: 500px
+      @media screen and (max-width: 550px)
+        width: 370px
+        top: 360px
+        opacity: .8
     &::after
       background: linear-gradient(0deg, $dark 10%, rgba(25, 26, 35, 0) 100%)
   .info
