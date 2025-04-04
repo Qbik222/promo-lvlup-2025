@@ -621,7 +621,8 @@ body.dark
     &::before
       background: url("../img/welcome/welcome-shadow-dark.png") no-repeat 0 0/contain
       @media screen and (max-width: 1050px)
-        width: 500px
+        width: 730px
+        opacity: .95
       @media screen and (max-width: 550px)
         width: 370px
         top: 360px
@@ -651,3 +652,7 @@ body.dark
     display: block
   picture.uk
     display: none
+  .welcome
+    &__bottom
+      @media screen and (max-width: 450px)
+        max-width: 310px
